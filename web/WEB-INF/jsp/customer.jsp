@@ -510,7 +510,7 @@
             });
 			
         }
-        
+
 		function editCustomer(id) {
 			$.ajax({
 				type:"get",
