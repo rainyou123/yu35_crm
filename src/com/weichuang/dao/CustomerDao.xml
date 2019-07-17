@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.weichuang.dao.CustomerDao">
+
+    <!--int getCustomerTotal(QueryVo vo);-->
+
+    <select id="getCustomerTotal" parameterType="QueryVo" resultType="Integer">
+        select count(*) from customer
+        <where>
+            <if test="custName != null and custName != ''">
+                and cust_name like "%"#{custName}"%"
+            </if>
+            <if test="custSource != null and custSource != ''">
+                and cust_source = #{custSource}
+            </if>
+
+            <if test="custIndustry != null and custIndustry != ''">
+                and cust_industry = #{custIndustry}
+            </if>
+
+            <if test="custLevel != null and custLevel != ''">
+                and cust_level = #{custLevel}
+            </if>
+        </where>
+    </select>
+
+
+    <!--List<Customer> getCustomerlist(QueryVo vo);-->
+    <select id="getCustomerlist" parameterType="QueryVo" resultType="Customer">
+        select * from customer
+        <where>
+            <if test="custName != null and custName != ''">
+                and cust_name like "%"#{custName}"%"
+            </if>
+            <if test="custSource != null and custSource != ''">
+                and cust_source = #{custSource}
+            </if>
+
+            <if test="custIndustry != null and custIndustry != ''">
+                and cust_industry = #{custIndustry}
+            </if>
+
+            <if test="custLevel != null and custLevel != ''">
+                and cust_level = #{custLevel}
+            </if>
+        </where>
+        limit #{startIndex} , #{maxCount}
+    </select>
+
+
+    <!--Customer getCustomerById(Integer id);-->
+    <select id="getCustomerById" resultType="Customer" parameterType="Integer">
+        select * from customer
+        <where>
+            cust_id = #{id}
+        </where>
+    </select>
+
+
+    <!--void updateCustomer(Customer customer);-->
+    <update id="updateCustomer" parameterType="Customer">
+        update customer
+        <set>
+            <if test="cust_name != null and cust_name != ''">
+                cust_name = #{cust_name},
+            </if>
+            <if test="cust_source != null and cust_source != ''">
+                cust_source = #{cust_source},
+            </if>
+
+            <if test="cust_industry != null and cust_industry != ''">
+                cust_industry = #{cust_industry},
+            </if>
+
+            <if test="cust_level != null and cust_level != ''">
+                cust_level = #{cust_level},
+            </if>
+            <if test="cust_linkman != null and cust_linkman != ''">
+                cust_linkman = #{cust_linkman},
+            </if>
+            <if test="cust_phone != null and cust_phone != ''">
+                cust_phone = #{cust_phone},
+            </if>
+            <if test="cust_mobile != null and cust_mobile != ''">
+                cust_mobile = #{cust_mobile},
+            </if>
+            <if test="cust_zipcode != null and cust_zipcode != ''">
+                cust_zipcode = #{cust_zipcode},
+            </if>
+            <if test="cust_address != null and cust_address != ''">
+                cust_address = #{cust_address},
+            </if>
+            cust_id=#{cust_id}
+        </set>
+        <where>
+            cust_id= #{cust_id}
+        </where>
+    </update>
+
+    <!--void deleteCustomer(Integer id);-->
+    <delete id="deleteCustomer" parameterType="Integer">
+        delete from customer
+        <where>
+            cust_id = #{id}
+        </where>
+    </delete>
+
+    <!--void addCustomer(Customer customer);-->
+    <insert id="addCustomer" parameterType="Customer">
+        insert into customer values (null, #{cust_name} ,null , null, #{cust_source} , #{cust_industry},#{cust_level} ,#{cust_linkman} ,#{cust_phone} , #{cust_mobile} , #{cust_zipcode} ,#{cust_address},#{cust_createtime})
+    </insert>
+</mapper>
+        <!--$("#edit_cust_id").val(data.cust_id);-->
+        <!--$("#edit_customerName").val(data.cust_name);-->
+        <!--$("#edit_customerFrom").val(data.cust_source)-->
+        <!--$("#edit_custIndustry").val(data.cust_industry)-->
+        <!--$("#edit_custLevel").val(data.cust_level)-->
+        <!--$("#edit_linkMan").val(data.cust_linkman);-->
+        <!--$("#edit_phone").val(data.cust_phone);-->
+        <!--$("#edit_mobile").val(data.cust_mobile);-->
+        <!--$("#edit_zipcode").val(data.cust_zipcode);-->
+        <!--$("#edit_address").val(data.cust_address);-->
